@@ -75,7 +75,7 @@ const Navbar = ({
           title: "Menu Items",
           description: "Food Items are available here",
           icon: <Book className="size-5 shrink-0" />,
-          url: "/menu/menuitem",
+          url: "/menu/foodlist",
         },
         {
           title: "Categories",
@@ -93,6 +93,10 @@ const Navbar = ({
     {
       title: "Contact",
       url: "/contact",
+    },
+    {
+      title: "Admin Dashboard",
+      url: "/dashboard",
     },
   ],
   auth = {
