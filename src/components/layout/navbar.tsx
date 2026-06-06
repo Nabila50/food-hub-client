@@ -95,8 +95,8 @@ const Navbar = ({
       url: "/contact",
     },
     {
-      title: "Admin Dashboard",
-      url: "/dashboard",
+      title: "Dashboard",
+      url: "/dashboardLayout",
     },
   ],
   auth = {

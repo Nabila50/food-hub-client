@@ -6,30 +6,31 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+} from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 // import { Separator } from "@/components/ui/separator"
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 import React, { Children } from "react";
 
 export default function DashboardLayout({
- 
   admin,
   customer,
-  provider
+  provider,
 }: {
- 
-  admin: React.ReactNode,
-  customer: React.ReactNode,
-  provider: React.ReactNode
+  admin: React.ReactNode;
+  customer: React.ReactNode;
+  provider: React.ReactNode;
 }) {
+  const userInfo = {
+    role: "customer",
+  };
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar user = {userInfo} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
@@ -50,11 +51,19 @@ export default function DashboardLayout({
           </Breadcrumb>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">
-            {admin}
-            {customer}
-            {provider}
+          {userInfo.role === "admin" && admin}
+          {userInfo.role === "customer" && customer}
+          {userInfo.role === "provider" && provider}
+
+          {/* {userInfo.role === "admin"
+            ? admin
+            : userInfo.role === "customer"
+              ? customer
+              : userInfo.role === "provider"
+                ? provider
+                : null} */}
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

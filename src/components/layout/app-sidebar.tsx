@@ -15,13 +15,17 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import Link from "next/link";
+import { adminRoutes } from "@/routes/adminRoutes";
+import { customerRoutes } from "@/routes/customerRoutes";
+import { providerRoutes } from "@/routes/providerRoutes";
+import { Route } from "@/types";
 
 // This is sample data.
 const data = {
   versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
   navMain: [
     {
-      title: "Admin Dashboard",
+      title: "LogIn Dashboard",
       url: "/dashboard",
       items: [
          {
@@ -29,16 +33,16 @@ const data = {
           url: "/",
         },
         {
-          title: "Profile",
-          url: "/dashboard/profile",
+          title: "Admin Dashboard",
+          url: "/admin-dashboard",
         },
         {
-          title: "Orders",
-          url: "/dashboard/orders",
+          title: "Customer Dashboard",
+          url: "/customer-dashboard",
         },
         {
-          title: "Analytics",
-          url: "/dashboard/analytics",
+          title: "Provider Dashboard",
+          url: "/provider-dashboard",
         },
       ],
     },
@@ -47,14 +51,34 @@ const data = {
   ],
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({user, ...props }:{user: {role: string} & React.ComponentProps<typeof Sidebar>}) {
+
+  let routes : Route[] = [];
+  switch (user.role) {
+    case "admin":
+      routes = adminRoutes;
+      break;
+    
+    case "customer":
+      routes = customerRoutes;
+      break;
+    
+    case "provider":
+      routes = providerRoutes;
+      break
+  
+    default:
+      routes = [];
+      break;
+  }
+
   return (
     <Sidebar {...props}>
    
    
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}
-        {data.navMain.map((item) => (
+        {routes.map((item) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
             <SidebarGroupContent>
@@ -62,7 +86,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <a href={item.url}>{item.title}</a>
+                      <Link href={item.url}>{item.title}</Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
