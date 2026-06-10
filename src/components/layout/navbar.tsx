@@ -96,8 +96,12 @@ const Navbar = ({
     },
     {
       title: "Dashboard",
-      url: "/dashboardLayout",
+      url: "/customer-dashboard",
     },
+    // {
+    //   title: "Dashboard",
+    //   url: "/admin-dashboard",
+    // },
   ],
   auth = {
     login: { title: "Login", url: "/login" },

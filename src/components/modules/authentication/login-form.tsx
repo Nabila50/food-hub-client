@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { authClient } from "@/lib/auth-client";
+import Link from "next/link";
 
 export function LoginForm({
   className,
@@ -25,11 +26,16 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
 
  const handleGoogleLogin = async () => {
-  const data = await authClient.signIn.social({
-    provider: "google",
-    callbackURL: "http://localhost:3000"
-  });
-  console.log(data)
+  try {
+    const data = await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "http://localhost:3000"
+    });
+    console.log("Login successful:", data);
+  } catch (error) {
+    console.error("Login error:", error);
+    alert("Login failed. Make sure backend server is running on port 5000");
+  }
 };
 
   const session = authClient.useSession();
@@ -92,9 +98,9 @@ export function LoginForm({
                 <Input id="password" type="password" required />
               </Field>
               <Field>
-                <Button type="submit">Login</Button>
+                <Button type="submit"><Link href="/">Login</Link> </Button>
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="#">Sign up</a>
+                  Don't have an account? <a href="#">Sign up</a>
                 </FieldDescription>
               </Field>
             </FieldGroup>
