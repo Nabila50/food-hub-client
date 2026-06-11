@@ -1,15 +1,21 @@
+import MenuCard from "@/components/modules/homepage/MenuCard";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
+import { menuService } from "@/services/menu.service";
 import { userService } from "@/services/user.service";
+import { FoodMenu } from "@/types";
 import { cookies } from "next/headers";
- 
+
 export default async function Home() {
-  // const {data, error}= await userService.getSession();
-  // console.log(data)
+  const { data } = await menuService.getFoodMenu();
+ 
   return (
-    <div >
-      <Button>Click Here</Button>
-       
-    </div>
+    
+      <div className="grid gap-5 grid-cols-3">
+        {data?.map((menu: FoodMenu) => (
+          <MenuCard key={menu.id} menu={menu}></MenuCard>
+        ))}
+      </div>
+
   );
 }
