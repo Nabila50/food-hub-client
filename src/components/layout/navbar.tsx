@@ -42,7 +42,7 @@ interface Navbar1Props {
     url: string;
     src: string;
     alt: string;
-    title: string;
+    // title: string;
     className?: string;
   };
   menu?: MenuItem[];
@@ -61,9 +61,9 @@ interface Navbar1Props {
 const Navbar = ({
   logo = {
     url: "/",
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
+    src: "https://i.ibb.co/VppN0Bvs/logo-foodhub-removebg.png",
     alt: "logo",
-    title: "Food Hub",
+    // title: "Food Hub",
   },
   menu = [
     { title: "Home", url: "/" },
@@ -110,7 +110,7 @@ const Navbar = ({
   className,
 }: Navbar1Props) => {
   return (
-    <section className={cn("py-4", className)}>
+    <section className={cn("py-6 bg-lime-200 mb-10", className)}>
       <div className="container mx-auto px-5">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex">
@@ -136,10 +136,10 @@ const Navbar = ({
           </div>
           <div className="flex gap-2">
             <ModeToggle></ModeToggle>
-            <Button asChild variant="outline" size="sm" className= "text-black font-semibold">
+            <Button asChild variant="outline" size="lg" className= "text-black font-semibold bg-amber-300">
               <Link href={auth.login.url}>{auth.login.title}</Link>
             </Button>
-            <Button asChild size="sm" className="bg-amber-300 text-black font-semibold">
+            <Button asChild size="lg" className="bg-lime-500 text-black font-semibold">
               <Link href={auth.signup.url}>{auth.signup.title}</Link>
             </Button>
           </div>
@@ -221,7 +221,7 @@ const renderMenuItem = (item: MenuItem) => {
     <NavigationMenuItem key={item.title}>
       <NavigationMenuLink
         asChild
-        className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
+        className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-base font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
       >
         <Link href={item.url}> {item.title}</Link>
        
