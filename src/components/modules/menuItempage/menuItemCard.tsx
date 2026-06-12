@@ -1,3 +1,4 @@
+"use client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,15 +18,15 @@ type Props = {
 
 export default function MenuItemCard({ item, onAddToCart }: Props) {
   return (
-    <Card className="relative mx-auto w-full max-w-sm pt-0 bg-blue-100">
+    <Card className="relative mx-auto w-full max-w-sm pt-0 bg-lime-50 mt-7">
       {/* Image */}
       <img
-        src={item.image ?? "https://avatar.vercel.sh/shadcn1"}
-        alt={item.name ?? "Menu item"}
-        className="relative z-20 aspect-video w-full object-cover"
+        src={item.image}
+        alt={item.name}
+        className="relative z-20 aspect-video w-full object-cover h-70"
       />
 
-      <CardHeader>
+      <CardHeader className="h-20">
         <CardAction>
           <div className="flex gap-2">
             <Badge
@@ -46,14 +47,14 @@ export default function MenuItemCard({ item, onAddToCart }: Props) {
           </div>
         </CardAction>
 
-        <CardTitle>{item.name ?? "Unnamed Item"}</CardTitle>
+        <CardTitle className="font-semibold">{item.name ?? "Unnamed Item"}</CardTitle>
 
         <CardDescription>{item.description}</CardDescription>
       </CardHeader>
 
-      <CardFooter className="flex items-center justify-between">
+      <CardFooter className="flex items-center justify-between bg-amber-100">
         <span className="font-semibold text-lg">
-          ${item.price.toFixed(2)}
+          ${item.price}
         </span>
 
         <Button

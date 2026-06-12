@@ -17,12 +17,12 @@ export interface FoodList{
 
 export interface MenuItemType {
   id: string;
-  name: string | null;
+  name: string;
   description: string;
   price: number;
   isAvailable: boolean;
   isFeatured: boolean;
-  image?: string | null;
+  image: string;
 }
 
 export interface DetailedMenuType {

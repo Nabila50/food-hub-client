@@ -20,7 +20,7 @@ export default async function Home() {
  
   return (
     
-      <div className="grid gap-5 grid-cols-3">
+      <div className="grid gap-5 grid-cols-3 ">
         {data?.map((menu: FoodMenu) => (
           <MenuCard key={menu.id} menu={menu}></MenuCard>
         ))}
