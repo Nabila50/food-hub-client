@@ -47,4 +47,37 @@ export const menuService = {
       return { data: null, error: { message: "something went wrong" } };
     }
   },
+
+  // * get menu by Id
+
+getMenuById: async function (id: string) {
+  try {
+    const url = `${API_URL}/menus/${id}`;
+
+    console.log("Fetching:", url);
+
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      throw new Error(`HTTP Error ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    return {
+      data,
+      error: null,
+    };
+  } catch (err) {
+    console.error("GET MENU ERROR:", err);
+
+    return {
+      data: null,
+      error: {
+        message:
+          err instanceof Error ? err.message : "Something went wrong",
+      },
+    };
+  }
+}
 };

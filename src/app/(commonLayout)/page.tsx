@@ -8,16 +8,16 @@ import { cookies } from "next/headers";
 
 export default async function Home() {
   const { data } = await menuService.getFoodMenu(
-    {
-    isAvailable: true,
-    // search: "uigzghjk",
-  },{
+  //   {
+  //   isAvailable: true,
+  //   // search: "uigzghjk",
+  // },{
    
-   cache: "no-store",
+  //  cache: "no-store",
 
-  }
+  // }
 );
-  console.log("data is here from home page: ", data)
+ 
   return (
     
       <div className="grid gap-5 grid-cols-3">

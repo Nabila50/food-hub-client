@@ -8,13 +8,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { FoodMenu } from "@/types";
+import { FoodList, FoodMenu } from "@/types";
+import Link from "next/link";
  
 
 export default async function MenuCard({ menu} : {menu: FoodMenu}) {
   return (
     <Card className="relative mx-auto w-full max-w-sm pt-0 bg-blue-100">
-      <div className="absolute inset-0 z-30" />
+      {/* <div className="absolute inset-0 z-30" /> */}
       <img
         src={menu?.image ?? "https://avatar.vercel.sh/shadcn1"}
         alt={menu?.title ?? "Event cover"}
@@ -35,7 +36,9 @@ export default async function MenuCard({ menu} : {menu: FoodMenu}) {
         </CardDescription>
       </CardHeader>
       <CardFooter>
-        <Button className="w-full bg-amber-300 text-black font-semibold">View Event</Button>
+        <Button asChild className="w-full bg-amber-300 text-black font-semibold">
+          <Link href={`/menu/${menu.id}`}>View Menu</Link>
+        </Button>
       </CardFooter>
     </Card>
   )
