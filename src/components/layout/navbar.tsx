@@ -136,6 +136,9 @@ const Navbar = ({
           </div>
           <div className="flex gap-2">
             <ModeToggle></ModeToggle>
+            {/* {
+              user?.<div className="profile"><img src={item.image} alt="" /></div>
+            } */}
             <Button asChild variant="outline" size="lg" className= "text-black font-semibold bg-amber-300">
               <Link href={auth.login.url}>{auth.login.title}</Link>
             </Button>

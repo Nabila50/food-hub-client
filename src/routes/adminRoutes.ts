@@ -10,15 +10,15 @@ export const adminRoutes : Route[] = [
       },
       {
         title: "Profile",
-        url: "/profile",
+        url: "/admin-dashboard/adminprofile",
       },
       {
         title: "Menu",
-        url: "/menu",
+        url: "/admin-dashboard/menu",
       },
       {
         title: "Order Info",
-        url: "/order",
+        url: "/admin-dashboard/orderinfo",
       },
 
       {

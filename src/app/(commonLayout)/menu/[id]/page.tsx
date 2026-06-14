@@ -41,7 +41,7 @@ console.log("Response:", response);
       <Card className="overflow-hidden bg-white shadow-sm border border-neutral-200">
         <div className="relative h-60 md:h-72 w-full bg-neutral-100">
           <img
-            // FIX: Fallback to an elegant default placeholder image if menu.image is null or empty string
+           
             src={menu?.image && menu.image.trim() !== "" ? menu.image : "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=1200"}
             alt={menu?.title ?? "Menu Collection"}
             className="w-full h-full object-cover"

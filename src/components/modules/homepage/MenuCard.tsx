@@ -37,7 +37,7 @@ export default async function MenuCard({ menu} : {menu: FoodMenu}) {
       </CardHeader>
       <CardFooter>
         <Button asChild className="w-full bg-amber-300 text-black font-semibold">
-          <Link href={`/menu/${menu.id}`}>View Menu</Link>
+          <Link href={`/menus/${menu.id}`}>View Menu</Link>
         </Button>
       </CardFooter>
     </Card>

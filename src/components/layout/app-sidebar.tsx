@@ -19,6 +19,7 @@ import { adminRoutes } from "@/routes/adminRoutes";
 import { customerRoutes } from "@/routes/customerRoutes";
 import { providerRoutes } from "@/routes/providerRoutes";
 import { Route } from "@/types";
+import { Roles } from "@/constants/roles";
 
 // This is sample data.
 const data = {
@@ -55,15 +56,15 @@ export function AppSidebar({user, ...props }:{user: {role: string} & React.Compo
 
   let routes : Route[] = [];
   switch (user.role) {
-    case "admin":
+    case Roles.admin:
       routes = adminRoutes;
       break;
     
-    case "customer":
+    case Roles.customer:
       routes = customerRoutes;
       break;
     
-    case "provider":
+    case Roles.provider:
       routes = providerRoutes;
       break
   

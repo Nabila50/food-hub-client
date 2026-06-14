@@ -22,7 +22,7 @@ export const customerRoutes : Route[] = [
         },
         {
           title: "Order Cancle",
-          url: "/orderCancle",
+          url: "/customer-dashboard/ordercancle",
         },
         
          
