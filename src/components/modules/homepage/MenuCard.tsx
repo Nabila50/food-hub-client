@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardAction,
@@ -7,12 +7,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import { FoodList, FoodMenu } from "@/types";
 import Link from "next/link";
- 
 
-export default async function MenuCard({ menu} : {menu: FoodMenu}) {
+export default async function MenuCard({ menu }: { menu: FoodMenu }) {
+
   return (
     <Card className="relative mx-auto w-full max-w-sm pt-0 bg-blue-100">
       {/* <div className="absolute inset-0 z-30" /> */}
@@ -21,25 +21,33 @@ export default async function MenuCard({ menu} : {menu: FoodMenu}) {
         alt={menu?.title ?? "Event cover"}
         className="relative z-20 aspect-video w-full object-cover"
       />
-      <CardHeader>
+      <CardHeader className="h-20">
         <CardAction>
-          <Badge className={ menu?.isAvailable
-      ? 'bg-green-500 text-white'
-      : 'bg-red-500 text-white'
-  }>
-            {menu?.isAvailable ? 'Available' : 'Unavailable'}
+          <Badge
+            className={
+              menu?.isAvailable
+                ? "bg-green-500 text-white"
+                : "bg-red-500 text-white"
+            }
+          >
+            {menu?.isAvailable ? "Available" : "Unavailable"}
           </Badge>
         </CardAction>
         <CardTitle>{menu?.title}</CardTitle>
         <CardDescription>
-          The quality of these foods are too good. Anyone can easily order foods.
+          {menu?.menuItem?.[0]?.description ?? "No description available"}
         </CardDescription>
       </CardHeader>
       <CardFooter>
-        <Button asChild className="w-full bg-amber-300 text-black font-semibold">
+        <Button
+          asChild
+          className="w-full bg-amber-300 text-black font-semibold"
+        >
           <Link href={`/menus/${menu.id}`}>View Menu</Link>
         </Button>
       </CardFooter>
     </Card>
-  )
+  );
+
+  console.log(menu);
 }

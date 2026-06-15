@@ -2,7 +2,7 @@ import CreateMenuFormServer from "@/components/modules/provider/createMenu/Creat
 
  
  
- export default function page() {
+ export default function CreateMenuPage() {
    return (
      <div>
       <CreateMenuFormServer></CreateMenuFormServer>
