@@ -10,8 +10,10 @@ import {
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { env } from "@/env";
+import { revalidateTag, updateTag } from "next/cache";
 import { name } from "next/dist/server/ci-info";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const API_URL = env.API_URL;
 
@@ -51,6 +53,11 @@ export default function CreateMenuFormServer() {
       },
       body: JSON.stringify(menuData),
     });
+
+    if(res.ok){
+      revalidateTag("menuPosts", "max");
+
+    }
  
   };
 

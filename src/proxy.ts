@@ -14,8 +14,6 @@ if (!sessionData) {
 
 const role = sessionData.user.role;
 
-console.log("PATH:", pathname);
-console.log("ROLE:", role);
  
 
   //* Customer Dashboard

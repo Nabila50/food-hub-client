@@ -1,4 +1,5 @@
 import { env } from "@/env";
+import { cookies } from "next/headers";
 // import { keycloak } from "better-auth/plugins";
 
 const API_URL = env.API_URL;
@@ -6,11 +7,28 @@ const API_URL = env.API_URL;
 interface getMenuParams {
   isAvailable?: boolean;
   search?: string;
+  page?: string;
 }
 
 interface ServiceOptions {
   cache?: RequestCache;
   revalidate?: number;
+}
+
+export interface MenuData {
+  title: string;
+  providerId: string;
+  image: string;
+  isAvailable: boolean;
+  menuItems:[
+      {
+        name:string;
+        description: string,
+        price: number,
+        image: string,
+        isFeatured: boolean
+      },
+    ];
 }
 
 export const menuService = {
@@ -38,6 +56,10 @@ export const menuService = {
       if (options?.revalidate) {
         config.next = { revalidate: options.revalidate };
       }
+
+      config.next = {...config.next, tags: ["menuPosts"]};
+
+
       const res = await fetch(url.toString(), config);
 
       const data = await res.json();
@@ -50,34 +72,59 @@ export const menuService = {
 
   // * get menu by Id
 
-getMenuById: async function (id: string) {
-  try {
-    const url = `${API_URL}/menus/${id}`;
+  getMenuById: async function (id: string) {
+    try {
+      const url = `${API_URL}/menus/${id}`;
 
-    console.log("Fetching:", url);
+      console.log("Fetching:", url);
 
-    const res = await fetch(url);
+      const res = await fetch(url);
 
-    if (!res.ok) {
-      throw new Error(`HTTP Error ${res.status}`);
+      if (!res.ok) {
+        throw new Error(`HTTP Error ${res.status}`);
+      }
+
+      const data = await res.json();
+
+      return {
+        data,
+        error: null,
+      };
+    } catch (err) {
+      console.error("GET MENU ERROR:", err);
+
+      return {
+        data: null,
+        error: {
+          message: err instanceof Error ? err.message : "Something went wrong",
+        },
+      };
     }
+  },
 
-    const data = await res.json();
+  createMenuPost: async (menuData: MenuData) => {
+    try {
+      const cookieStore = await cookies();
 
-    return {
-      data,
-      error: null,
-    };
-  } catch (err) {
-    console.error("GET MENU ERROR:", err);
+      const res = await fetch(`${API_URL}/menus`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
+        body: JSON.stringify(menuData),
+      });
 
-    return {
-      data: null,
-      error: {
-        message:
-          err instanceof Error ? err.message : "Something went wrong",
-      },
-    };
-  }
-}
+      const data = await res.json();
+
+
+      if(data.error){
+        return {data: null, error: {message: "error: menu not created"}}
+
+      }
+      return {data: data, }
+    } catch (err) {
+      return { data: null, error: { message: "something went wrong!!" } };
+    }
+  },
 };
