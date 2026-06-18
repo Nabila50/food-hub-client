@@ -1,6 +1,10 @@
+// import { cookies } from "next/headers";
+// import { keycloak } from "better-auth/plugins";
+
 import { env } from "@/env";
 import { cookies } from "next/headers";
-// import { keycloak } from "better-auth/plugins";
+
+// import { env } from "@/env";
 
 const API_URL = env.API_URL;
 
@@ -20,18 +24,19 @@ export interface MenuData {
   providerId: string;
   image: string;
   isAvailable: boolean;
-  menuItems:[
-      {
-        name:string;
-        description: string,
-        price: number,
-        image: string,
-        isFeatured: boolean
-      },
-    ];
+  menuItems: [
+    {
+      name: string;
+      description: string;
+      price: number;
+      image: string;
+      isFeatured: boolean;
+    },
+  ];
 }
 
 export const menuService = {
+  // * get all menu
   getFoodMenu: async function (
     params?: getMenuParams,
     options?: ServiceOptions,
@@ -57,8 +62,7 @@ export const menuService = {
         config.next = { revalidate: options.revalidate };
       }
 
-      config.next = {...config.next, tags: ["menuPosts"]};
-
+      config.next = { ...config.next, tags: ["menuPosts"] };
 
       const res = await fetch(url.toString(), config);
 
@@ -70,11 +74,35 @@ export const menuService = {
     }
   },
 
+  // * create Menu
+  createMenuPost: async (menuData: MenuData) => {
+    try {
+      // const cookieStore = await cookies();
+
+      const res = await fetch(`${API_URL}/menus`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
+        body: JSON.stringify(menuData),
+      });
+
+      const data = await res.json();
+
+      if (data.error) {
+        return { data: null, error: { message: "error: menu not created" } };
+      }
+      return { data: data };
+    } catch (err) {
+      return { data: null, error: { message: "something went wrong!!" } };
+    }
+  },
   // * get menu by Id
 
   getMenuById: async function (id: string) {
     try {
-      const url = `${API_URL}/menus/${id}`;
+      const url = `${API_URL}/menu/${id}`;
 
       console.log("Fetching:", url);
 
@@ -102,29 +130,34 @@ export const menuService = {
     }
   },
 
-  createMenuPost: async (menuData: MenuData) => {
-    try {
-      const cookieStore = await cookies();
+  // * delete Menu
 
-      const res = await fetch(`${API_URL}/menus`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Cookie: cookieStore.toString(),
-        },
-        body: JSON.stringify(menuData),
-      });
+  deleteMenu: async (id: string) => {
+     const cookieStore = await cookies();
+    const res = await fetch(`${API_URL}/menus/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: cookieStore.toString(),
+      },
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
+    return { data: data, error: null };
 
-      if(data.error){
-        return {data: null, error: {message: "error: menu not created"}}
+    // const text = await res.text();
 
-      }
-      return {data: data, }
-    } catch (err) {
-      return { data: null, error: { message: "something went wrong!!" } };
-    }
+    // let data;
+    // try {
+    //   data = JSON.parse(text);
+    // } catch {
+    //   throw new Error("Backend did not return JSON");
+    // }
+
+    // if (!res.ok) {
+    //   throw new Error(data?.error || "Delete failed");
+    // }
   },
 };

@@ -9,7 +9,7 @@ import { CreateMenuFormClient } from "@/components/modules/provider/createMenu/C
 
   const {data} = await menuService.getFoodMenu({}, {cache: "no-store"});
 
-  console.log(data);
+
    return (
      <div>
       {/* <CreateMenuFormServer/> */}
