@@ -7,6 +7,7 @@ import { cookies } from "next/headers";
 // import { env } from "@/env";
 
 const API_URL = env.API_URL;
+console.log("API_URL:", API_URL);
 
 interface getMenuParams {
   isAvailable?: boolean;

@@ -12,6 +12,10 @@ import { cookies } from "next/headers";
 export default async function Home() {
   const { data } = await menuService.getFoodMenu();
 
+  console.log("DATA:", data);
+ 
+
+
   return (
     <div>
       <BannerCarousel></BannerCarousel>

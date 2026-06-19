@@ -13,7 +13,7 @@ import Link from "next/link";
 
 export default async function MenuCard({ menu }: { menu: FoodMenu }) {
 
-
+ 
 
   return (
     <Card className="relative mx-auto w-full max-w-sm pt-0 bg-blue-100">
@@ -45,7 +45,7 @@ export default async function MenuCard({ menu }: { menu: FoodMenu }) {
           asChild
           className="w-full bg-amber-300 text-black font-semibold"
         >
-          <Link href={`/menus/${menu.id}`}>View Menu</Link>
+          <Link href={`/menu/${menu.id}`}>View Menu</Link>
         </Button>
       </CardFooter>
     </Card>
