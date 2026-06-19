@@ -13,6 +13,8 @@ import Link from "next/link";
 
 export default async function MenuCard({ menu }: { menu: FoodMenu }) {
 
+
+
   return (
     <Card className="relative mx-auto w-full max-w-sm pt-0 bg-blue-100">
       {/* <div className="absolute inset-0 z-30" /> */}
@@ -49,5 +51,4 @@ export default async function MenuCard({ menu }: { menu: FoodMenu }) {
     </Card>
   );
 
-  console.log(menu);
 }

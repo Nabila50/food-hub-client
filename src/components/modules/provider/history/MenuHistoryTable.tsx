@@ -19,6 +19,7 @@ import { error } from "next/dist/build/output/log";
 import { name } from "next/dist/server/ci-info";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import UpdateMenuDialog from "../updateMenuDialog/UpdateMenuDialog";
 
 export default function MenuHistoryTable({ menus }: { menus: FoodMenu[] }) {
   const router = useRouter();
@@ -61,12 +62,7 @@ export default function MenuHistoryTable({ menus }: { menus: FoodMenu[] }) {
               <TableCell>{item.providerId}</TableCell>
               <TableCell>{item.image}</TableCell>
               <TableCell>
-                <Button
-                  onClick={() => handleDelete(item.id as string)}
-                  className="bg-red-500 text-white px-3 py-1 rounded"
-                >
-                  Update
-                </Button>
+                <UpdateMenuDialog menu={item} />
                 <Button
                   onClick={() => handleDelete(item.id as string)}
                   className="bg-red-500 text-white px-3 py-1 rounded"

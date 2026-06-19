@@ -28,7 +28,6 @@ export default async function DashboardLayout({
   provider: React.ReactNode;
 })  {
     const {data} = await userService.getSession();
-    console.log("Dashboar layout: ", data)
     const userInfo = data.user;
   
   return (

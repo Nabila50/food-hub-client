@@ -20,12 +20,14 @@ interface ServiceOptions {
 }
 
 export interface MenuData {
+  id: string;
   title: string;
   providerId: string;
-  image: string;
+  image?: string;
   isAvailable: boolean;
-  menuItems: [
+  menuItem: [
     {
+      id: string;
       name: string;
       description: string;
       price: number;
@@ -102,7 +104,7 @@ export const menuService = {
 
   getMenuById: async function (id: string) {
     try {
-      const url = `${API_URL}/menu/${id}`;
+      const url = `${API_URL}/menus/${id}`;
 
       console.log("Fetching:", url);
 
@@ -133,7 +135,7 @@ export const menuService = {
   // * delete Menu
 
   deleteMenu: async (id: string) => {
-     const cookieStore = await cookies();
+    const cookieStore = await cookies();
     const res = await fetch(`${API_URL}/menus/${id}`, {
       method: "DELETE",
       credentials: "include",
@@ -146,18 +148,40 @@ export const menuService = {
     const data = await res.json();
 
     return { data: data, error: null };
+  },
 
-    // const text = await res.text();
+  // * Update Menu
+  updateMenu: async (
+    id: string,
+    menuData: {
+      title?: string;
+      image?: string;
+      isAvailable?: boolean;
+      menuItem?: {
+        id: string;
+        name?: string;
+        price?: number;
+      }[];
+    },
+  ) => {
+    const cookieStore = await cookies();
 
-    // let data;
-    // try {
-    //   data = JSON.parse(text);
-    // } catch {
-    //   throw new Error("Backend did not return JSON");
-    // }
+    const res = await fetch(`${API_URL}/menus/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: cookieStore.toString(),
+      },
+      body: JSON.stringify(menuData),
+    });
+    const data = await res.json();
+   
 
-    // if (!res.ok) {
-    //   throw new Error(data?.error || "Delete failed");
-    // }
+    return {
+      data,
+      success: true,
+      message: "ok",
+      error:null
+    };
   },
 };

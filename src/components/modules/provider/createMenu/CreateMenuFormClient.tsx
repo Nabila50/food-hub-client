@@ -66,13 +66,16 @@ export function CreateMenuFormClient() {
 
       const menuData: MenuData = {
         ...value,
+        // include id to satisfy MenuData type; new menus may not have an id yet
+        id: (value as any).id || "",
         title: value.title,
         providerId: value.providerId,
 
         image: value.image,
         isAvailable: value.isAvailable,
-        menuItems: [
+        menuItem: [
           {
+            id: (value as any).menuItem[0].id,
             name: value.menuItem[0].name,
             description: value.menuItem[0].description,
             price: Number(value.menuItem[0].price),

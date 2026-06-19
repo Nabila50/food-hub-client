@@ -1,5 +1,6 @@
 import BannerCarousel from "@/components/modules/homepage/BannerCarousel";
-import MenuCard from "@/components/modules/homepage/MenuCard";
+import MenuCard from "@/components/modules/homepage/menucard/MenuCard";
+// import MenuCard from "@/components/modules/homepage/MenuCard";
 import { Button } from "@/components/ui/button";
 import { Carousel } from "@/components/ui/carousel";
 import { authClient } from "@/lib/auth-client";
