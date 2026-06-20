@@ -5,6 +5,7 @@ const AUTH_URL = env.AUTH_URL;
 
 
 export const userService = {
+  // * get session
   getSession: async function () {
     try{
         const cookieStore = await cookies();
@@ -31,4 +32,7 @@ export const userService = {
 
     }
   },
+
+  // * profile
+  
 };

@@ -10,7 +10,7 @@ export const providerRoutes : Route[] = [
         },
         {
           title: "Profile",
-          url: "/provider-dashboard/profile",
+          url: "/provider-dashboard/provider-profile",
         },
         {
           title: "Menu Management",
