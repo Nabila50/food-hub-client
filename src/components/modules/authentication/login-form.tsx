@@ -42,9 +42,9 @@ export function LoginForm({
       provider: "google",
       callbackURL: "http://localhost:3000"
     });
-    console.log("Login successful:", data);
+    // console.log("Login successful:", data);
   } catch (error) {
-    console.error("Login error:", error);
+    // console.error("Login error:", error);
     alert("Login failed. Make sure backend server is running on port 5000");
   }
 };
@@ -148,7 +148,7 @@ export function LoginForm({
         </CardContent>
         <CardFooter className="flex flex-col gap-5 justify-end">
           <Button form="signup-form" type="submit" className="w-full bg-amber-300 text-black font-semibold">
-             <Link href="/">LogIn </Link>
+             <Link href="/">LogIn </Link> 
           </Button>
            <Button onClick={()=>handleGoogleLogin()} variant="outline" type="button" className="w-full">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

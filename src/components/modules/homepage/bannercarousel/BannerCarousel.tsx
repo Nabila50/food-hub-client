@@ -11,9 +11,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import next from "../../../../public/next.svg"
+// import next from "../../../../public/next.svg"
 
-export default function CarouselPlugin() {
+export default function BannerCarousel() {
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
   )
@@ -21,21 +21,23 @@ export default function CarouselPlugin() {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="h-30 place-items-center mb-5"
+      className="h-50 place-items-center mb-30"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
-      <CarouselContent className="min-w-screen">
+      <CarouselContent className="min-w-screen h-100 border-2">
         {Array.from({ length: 5 }).map((_, index) => (
           <CarouselItem key={index}>
-            <div className="p-1">
-              <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
+            <Card>
+                <CardContent className="flex aspect-square items-center justify-center">
                   <span className="text-4xl font-semibold">{index + 1}</span>
-                  <img src={next} alt="" />
+                  <img src="https://i.ibb.co/s9ysCx7h/soups-2.jpg" alt="" />
+                  <img src="https://i.ibb.co/6SbsLXp/Chicken-Noodle-Soup.jpg" alt="" />
                 </CardContent>
               </Card>
-            </div>
+            {/* <div className="p-1">
+              
+            </div> */}
           </CarouselItem>
         ))}
       </CarouselContent>

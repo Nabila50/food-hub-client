@@ -17,6 +17,7 @@ type Props = {
 };
 
 export default function MenuItemCard({ item, onAddToCart }: Props) {
+  
   return (
     <Card className="relative mx-auto w-full max-w-sm pt-0 bg-lime-50 mt-7">
       {/* Image */}

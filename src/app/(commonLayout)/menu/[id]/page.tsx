@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import Link from "next/link";
 import { ArrowLeft, ShoppingCart, Star } from "lucide-react";
 import { menuService } from "@/services/menu.service";
+import AddToCart from "@/components/modules/addtocart/addToCart";
 
 
 export default async function MenuDetailsCard({
@@ -12,6 +13,11 @@ export default async function MenuDetailsCard({
   params: Promise<{ id: string | string[] }>;
 }) {
   const { id } = await params;
+//   params,
+// }: {
+//   params: { id: string };
+// }) {
+//   const { id } = params;
 
   // 1. Fetching the data
   const response = await menuService.getMenuById(id as string);
@@ -126,13 +132,7 @@ console.log("Response:", response);
                         </span>
                       )}
                     </div>
-                    <Button
-                      size="sm"
-                      className="bg-amber-400 hover:bg-amber-500 text-base font-semibold gap-2 shadow-xs"
-                      disabled={!item.isAvailable || !menu.isAvailable}
-                    >
-                      <ShoppingCart className="h-4 w-4" /> Add to Order
-                    </Button>
+                    <AddToCart menuItemId={item.id} />
                   </div>
                 </div>
               </Card>

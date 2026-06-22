@@ -4,13 +4,10 @@ export const providerRoutes : Route[] = [
     {
       title: "Provider Info",
       items: [
-         {
-          title: "Home",
-          url: "/",
-        },
+         
         {
           title: "Profile",
-          url: "/provider-dashboard/provider-profile",
+          url: "/profile",
         },
         {
           title: "Menu Management",
@@ -27,7 +24,11 @@ export const providerRoutes : Route[] = [
         {
           title: "Order Status",
           url: "/orderstatus",
-        }      
+        },
+        {
+          title: "Home",
+          url: "/",
+        },
          
       ]
     }

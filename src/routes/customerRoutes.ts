@@ -4,10 +4,7 @@ export const customerRoutes : Route[] = [
     {
       title: "Customer Info",
       items: [
-         {
-          title: "Home",
-          url: "/",
-        },
+        
         {
           title: "Profile",
           url: "/profile",
@@ -23,6 +20,10 @@ export const customerRoutes : Route[] = [
         {
           title: "Order Cancle",
           url: "/customer-dashboard/ordercancle",
+        },
+         {
+          title: "Home",
+          url: "/",
         },
         
          

@@ -33,6 +33,16 @@ export const userService = {
     }
   },
 
-  // * profile
-  
+  // // * profile
+  //  getMyProfile: async () => {
+  //   const res = await fetch(
+  //     `${AUTH_URL}/users/me`,
+  //     {
+  //       credentials: "include",
+  //       cache: "no-store",
+  //     }
+  //   );
+
+  //   return await res.json();
+  // },
 };
