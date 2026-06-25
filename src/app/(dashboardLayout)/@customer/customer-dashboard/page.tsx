@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
 export default function CustomerDashboard() {
-    return redirect("/profile")
+    return 
+    // redirect("/profile")
 }

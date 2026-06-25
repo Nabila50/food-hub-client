@@ -14,7 +14,7 @@ export const customerRoutes : Route[] = [
           url: "/menu",
         },
         {
-          title: "Order Status",
+          title: "My Order",
           url: "/order",
         },
         {

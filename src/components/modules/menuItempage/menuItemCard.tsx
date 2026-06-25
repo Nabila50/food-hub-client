@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { MenuItemType } from "@/types";
+import AddToCart from "../addtocart/addToCart";
 
 type Props = {
   item: MenuItemType;
@@ -57,14 +58,7 @@ export default function MenuItemCard({ item, onAddToCart }: Props) {
         <span className="font-semibold text-lg">
           ${item.price}
         </span>
-
-        <Button
-          onClick={() => onAddToCart?.(item)}
-          disabled={!item.isAvailable}
-          className="bg-amber-300 text-black font-semibold"
-        >
-          Add to Cart
-        </Button>
+          <AddToCart menuItemId={item.id} />
       </CardFooter>
     </Card>
   );

@@ -22,8 +22,8 @@ export const providerRoutes : Route[] = [
           url: "/customerinfo",
         },
         {
-          title: "Order Status",
-          url: "/orderstatus",
+          title: "Customer Order Status",
+          url: "/order",
         },
         {
           title: "Home",

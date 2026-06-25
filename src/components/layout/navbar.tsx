@@ -95,6 +95,10 @@ const Navbar = ({
       url: "/contact",
     },
     {
+      title: "Providers",
+      url: "/providers",
+    },
+    {
       title: "Dashboard",
       url: "/customer-dashboard",
     },

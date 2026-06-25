@@ -2,14 +2,7 @@ import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { profileService } from "@/services/profile.service";
 
 export default async function ProfilePage() {
-  const res = await profileService.getMyProfile();
-
-  const user = res.data;
-
-
-  if (!user) {
-    return <div>User not found</div>;
-  }
+  const user = await profileService.getMyProfile();
 
   return (
 
@@ -17,7 +10,7 @@ export default async function ProfilePage() {
       <Card className="border rounded-lg p-6 bg-lime-200">
         <div>
           <img
-            src={user.image || "https://avatar.vercel.sh/default"}
+            src= {user.image}
             className="w-60 h-60 rounded-full"
             alt="profile"
           />

@@ -42,9 +42,9 @@ export function LoginForm({
       provider: "google",
       callbackURL: "http://localhost:3000"
     });
-    // console.log("Login successful:", data);
+ 
   } catch (error) {
-    // console.error("Login error:", error);
+ 
     alert("Login failed. Make sure backend server is running on port 5000");
   }
 };
@@ -69,6 +69,7 @@ export function LoginForm({
         return;
        }
 
+       
        toast.success("User logged in successfully....", {id: toastId})
         
      }catch(err){

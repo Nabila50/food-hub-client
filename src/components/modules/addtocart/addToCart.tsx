@@ -3,25 +3,23 @@
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { createOrderAction } from "@/actions/order.action";
+import { toast } from "sonner";
 
-export default function AddToCart({
-  menuItemId,
-}: {
-  menuItemId: string;
-}) {
+export default function AddToCart({ menuItemId }: { menuItemId: string }) {
   const handleOrder = async () => {
     try {
-      const result = await createOrderAction(
-        menuItemId
-      );
+      const result = await createOrderAction(menuItemId);
 
-      console.log(result);
+      console.log("ORDER RESPONSE:", result);
 
-      alert("Order created successfully");
+      if (!result.success) {
+        alert(result.message);
+        return;
+      }
+
+      toast.success("Order created successfully");
     } catch (error) {
-      console.error(error);
-
-      alert("Failed to create order");
+      toast.error("Fail to create order");
     }
   };
 

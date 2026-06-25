@@ -14,7 +14,7 @@ export const adminRoutes: Route[] = [
       },
       {
         title: "Order Info",
-        url: "/admin-dashboard/orderinfo",
+        url: "/order",
       },
 
       {

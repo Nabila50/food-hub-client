@@ -27,22 +27,9 @@ export const userService = {
     return {data: session, error: null}
 
     }catch (err){
-        console.error(err)
+ 
         return {data: null, error: {message: "something went wrong!!!!"}}
 
     }
   },
-
-  // // * profile
-  //  getMyProfile: async () => {
-  //   const res = await fetch(
-  //     `${AUTH_URL}/users/me`,
-  //     {
-  //       credentials: "include",
-  //       cache: "no-store",
-  //     }
-  //   );
-
-  //   return await res.json();
-  // },
 };
