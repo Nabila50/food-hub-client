@@ -30,7 +30,7 @@ export default async function DashboardLayout({
   provider: React.ReactNode;
 }) {
   const { data } = await userService.getSession();
-  const userInfo = data.user;
+  const userInfo = data?.user;
 
   return (
     <SidebarProvider>

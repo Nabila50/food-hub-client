@@ -20,11 +20,11 @@ export default function AllProvidersCard({
   provider: ProviderType;
 }) {
   return (
-    <div className="w-7xl max-w-sm items-center mx-auto">
+    <div className="max-w-sm items-center">
       <Card className="bg-lime-100 ">
         <img
           src={provider?.user?.image ?? "https://avatar.vercel.sh/shadcn"}
-          className="aspect-video h-80 w-full"
+          className="aspect-video h-80"
         />
 
         <CardHeader>

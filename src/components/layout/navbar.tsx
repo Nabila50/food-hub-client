@@ -116,19 +116,17 @@ const Navbar = ({
   return (
     <section className={cn("py-6 bg-lime-200", className)}>
       <div className="container mx-auto px-5">
-        {/* Desktop Menu */}
+ 
         <nav className="hidden items-center justify-between lg:flex">
           <div className="flex items-center gap-6">
-            {/* Logo */}
+        
             <a href={logo.url} className="flex items-center gap-2">
               <img
                 src={logo.src}
                 className="max-h-8 dark:invert"
                 alt={logo.alt}
               />
-              {/* <span className="text-lg font-semibold tracking-tighter">
-                {logo.title}
-              </span> */}
+              
             </a>
             <div className="flex items-center">
               <NavigationMenu>
@@ -140,9 +138,7 @@ const Navbar = ({
           </div>
           <div className="flex gap-2">
             <ModeToggle></ModeToggle>
-            {/* {
-              user?.<div className="profile"><img src={item.image} alt="" /></div>
-            } */}
+            
             <Button asChild variant="outline" size="lg" className= "text-black font-semibold bg-amber-300">
               <Link href={auth.login.url}>{auth.login.title}</Link>
             </Button>
@@ -155,7 +151,7 @@ const Navbar = ({
         {/* Mobile Menu */}
         <div className="block lg:hidden">
           <div className="flex items-center justify-between">
-            {/* Logo */}
+    
             <a href={logo.url} className="flex items-center gap-2">
               <img
                 src={logo.src}

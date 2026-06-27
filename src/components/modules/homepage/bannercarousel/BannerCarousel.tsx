@@ -8,41 +8,44 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel"
-// import next from "../../../../public/next.svg"
+
+const images = [
+  "https://i.ibb.co/s9ysCx7h/soups-2.jpg",
+  "https://i.ibb.co/Z67kx8Zw/resturant-pic.jpg",
+  "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1200",
+]
 
 export default function BannerCarousel() {
   const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: true })
+    Autoplay({
+      delay: 2000,
+      stopOnInteraction: false,
+    })
   )
 
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="h-50 place-items-center mb-30"
+      className="w-full max-w-6xl mx-auto"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
-      <CarouselContent className="min-w-screen h-100 border-2">
-        {Array.from({ length: 5 }).map((_, index) => (
+      <CarouselContent>
+        {images.map((image, index) => (
           <CarouselItem key={index}>
             <Card>
-                <CardContent className="flex aspect-square items-center justify-center">
-                  <span className="text-4xl font-semibold">{index + 1}</span>
-                  <img src="https://i.ibb.co/s9ysCx7h/soups-2.jpg" alt="" />
-                  <img src="https://i.ibb.co/6SbsLXp/Chicken-Noodle-Soup.jpg" alt="" />
-                </CardContent>
-              </Card>
-            {/* <div className="p-1">
-              
-            </div> */}
+              <CardContent className="p-0">
+                <img
+                  src={image}
+                  alt={`Banner ${index + 1}`}
+                  className="w-7xl h-[350px] object-cover"
+                />
+              </CardContent>
+            </Card>
           </CarouselItem>
         ))}
       </CarouselContent>
-      {/* <CarouselPrevious />
-      <CarouselNext /> */}
     </Carousel>
   )
 }

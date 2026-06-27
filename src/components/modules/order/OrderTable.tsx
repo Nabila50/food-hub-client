@@ -38,6 +38,15 @@ export default function OrderTable({ orders }: Props) {
 
   const role = (session?.user as any)?.role;
   console.log("All Orders:", orderList);
+  // orderList.forEach((order) => {
+  //   console.log("ORDER ID:", order.id);
+  //   console.log("STATUS:", order.status);
+  //   console.log("ORDER ITEMS:", order.orderItems);
+  // });
+
+  orderList.forEach((order) => {
+    console.log(order.id, order.status, order.orderItems?.[0]?.menuItem?.name);
+  });
 
   // * handleStatus
   const handleStatusChange = async (orderId: string, status: string) => {
@@ -60,10 +69,7 @@ export default function OrderTable({ orders }: Props) {
       toast.error("Something went wrong while updating status");
       return { data: null, error: { message: "Update is not possible" } };
     }
-
-    
   };
-  
 
   return (
     <div className="border rounded-md">
@@ -78,20 +84,16 @@ export default function OrderTable({ orders }: Props) {
             <TableHead>Phone</TableHead>
             <TableHead>Price</TableHead>
             <TableHead>Quantity</TableHead>
+
+            <TableHead>Status</TableHead>
             <TableHead>Rating</TableHead>
-            {/* <TableHead>Comment</TableHead>
-            <TableHead>Review Submission</TableHead> */}
- 
           </TableRow>
         </TableHeader>
-       
+
         <TableBody>
-          
           {orderList.length > 0 ? (
             orderList.map((order) => (
-              console.log("Orders", order)
               <TableRow key={order.id}>
-                
                 <TableCell>{order.id}</TableCell>
 
                 <TableCell>{order?.customerId || "N/A"}</TableCell>
@@ -112,12 +114,12 @@ export default function OrderTable({ orders }: Props) {
                 <TableCell>
                   {order?.orderItems?.[0]?.quantity || "N/A"}
                 </TableCell>
-                 
 
-                <TableCell>{order?.orderItems?.[0]?.menuItem?.id}</TableCell>
-                
-                <TableCell>
-                  
+                <TableCell>{order.status}</TableCell>
+
+                {/* <TableCell>{order?.orderItems?.[0]?.menuItem?.id}</TableCell> */}
+
+                {/* <TableCell>
                   {role === "ADMIN" || role === "PROVIDER" ? (
                     <Select
                       defaultValue={order.status}
@@ -148,9 +150,52 @@ export default function OrderTable({ orders }: Props) {
                           menuItemId={order?.orderItems?.[0]?.menuItem?.id}
                         />
                       )}
+                      
                     </span>
                   )}
-             
+                </TableCell> */}
+                <TableCell>
+                  {role === "ADMIN" || role === "PROVIDER" ? (
+                    <Select
+                      defaultValue={order.status}
+                      onValueChange={(value) =>
+                        handleStatusChange(order.id, value)
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+
+                      <SelectContent>
+                        <SelectItem value="PENDING">Pending</SelectItem>
+                        <SelectItem value="PREPARING">Preparing</SelectItem>
+                        <SelectItem value="ONWAY">On Way</SelectItem>
+                        <SelectItem value="DELIVERED">Delivered</SelectItem>
+                        <SelectItem value="CANCELLED">Cancelled</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <div className="flex flex-col gap-2">
+                      {/* Customer can cancel only if order is pending */}
+                      {order.status === "PENDING" && (
+                        <button
+                          className="bg-red-500 text-white px-3 py-1 rounded"
+                          onClick={() =>
+                            handleStatusChange(order.id, "CANCELLED")
+                          }
+                        >
+                          Cancel Order
+                        </button>
+                      )}
+
+                      {/* Review after delivered */}
+                      {order.status === "DELIVERED" && (
+                        <ReviewForm
+                          menuItemId={order?.orderItems?.[0]?.menuItem?.id}
+                        />
+                      )}
+                    </div>
+                  )}
                 </TableCell>
               </TableRow>
             ))
@@ -164,9 +209,5 @@ export default function OrderTable({ orders }: Props) {
         </TableBody>
       </Table>
     </div>
-
-    
   );
-  
- 
 }

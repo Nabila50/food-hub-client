@@ -18,7 +18,14 @@ type Props = {
 };
 
 export default function MenuItemCard({ item, onAddToCart }: Props) {
-  
+  const averageRating = item.reviews?.length
+    ? (
+        item.reviews.reduce((sum, r) => sum + Number(r.rating), 0) /
+        item.reviews.length
+      ).toFixed(1)
+    : null;
+ 
+
   return (
     <Card className="relative mx-auto w-full max-w-sm pt-0 bg-lime-50 mt-7">
       {/* Image */}
@@ -42,23 +49,24 @@ export default function MenuItemCard({ item, onAddToCart }: Props) {
             </Badge>
 
             {item.isFeatured && (
-              <Badge className="bg-yellow-500 text-black">
-                Featured
-              </Badge>
+              <Badge className="bg-yellow-500 text-black">Featured</Badge>
             )}
           </div>
         </CardAction>
 
-        <CardTitle className="font-semibold">{item.name ?? "Unnamed Item"}</CardTitle>
+        <CardTitle className="font-semibold">
+          {item.name ?? "Unnamed Item"}
+        </CardTitle>
 
         <CardDescription>{item.description}</CardDescription>
       </CardHeader>
 
       <CardFooter className="flex items-center justify-between bg-amber-100">
+        <span className="font-semibold text-lg">${item.price}</span>
         <span className="font-semibold text-lg">
-          ${item.price}
+          {averageRating ? `⭐ ${averageRating}` : "No rating"}
         </span>
-          <AddToCart menuItemId={item.id} />
+        <AddToCart menuItemId={item.id} />
       </CardFooter>
     </Card>
   );

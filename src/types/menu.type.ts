@@ -15,6 +15,12 @@ export interface FoodList{
     description: string
 }
 
+export interface ReviewType {
+  id: string;
+  rating: number;
+  comment?: string | null;
+}
+
 
 export interface MenuItemType {
   id: string;
@@ -24,6 +30,7 @@ export interface MenuItemType {
   isAvailable: boolean;
   isFeatured: boolean;
   image: string;
+  reviews: ReviewType[];
 }
 
 export interface DetailedMenuType {

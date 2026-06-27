@@ -13,6 +13,16 @@ interface getMenuParams {
   isAvailable?: boolean;
   search?: string;
   page?: string;
+  isFeatured: boolean;
+  description: string;
+//    menuItem: {
+//     id: string;
+//     name: string;
+//     description: string;
+//     price: number;
+//     image: string;
+//     isFeatured: boolean;
+// }[];
 }
 
 interface ServiceOptions {
