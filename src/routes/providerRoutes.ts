@@ -19,7 +19,7 @@ export const providerRoutes : Route[] = [
         },
         {
           title: "Customer Info",
-          url: "/customerinfo",
+          url: "/customer-info",
         },
         {
           title: "Customer Order Status",

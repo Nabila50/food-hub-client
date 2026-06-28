@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 
 const AUTH_URL = env.AUTH_URL;
 
-
+const API_URL = env.API_URL;
 export const userService = {
   // * get session
   getSession: async function () {
@@ -32,4 +32,25 @@ export const userService = {
 
     }
   },
+
+  getCustomer: async function () {
+  try {
+    const cookieStore = await cookies();
+
+    const res = await fetch(`${API_URL}/users`, {
+      cache: "no-store",
+      headers: {
+        Cookie: cookieStore.toString(),
+      },
+    });
+
+    const data = await res.json();
+   
+    return { data: data };
+  } catch (err) {
+ 
+    return { data: null, error: { message: "Customers not found went wrong!!" } };
+  }
+},
+
 };

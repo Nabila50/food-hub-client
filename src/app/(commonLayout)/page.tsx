@@ -8,10 +8,16 @@ import { FoodMenu } from "@/types";
 import { MenuData } from "../../services/menu.service";
 
 export default async function Home() {
-  // const featuredMenu = await menuService.getFoodMenu({menuItem?.isFeatured: true});
-  const { data } = await menuService.getFoodMenu();
-  const featuredMenu = data.filter((menu: MenuData) =>
-    menu.menuItem.some((item) => item.isFeatured),
+  const menuResponse = await menuService.getFoodMenu();
+  const menuData = Array.isArray(menuResponse?.data)
+    ? menuResponse.data
+    : Array.isArray(menuResponse?.data?.data)
+      ? menuResponse.data.data
+      : [];
+
+  const featuredMenu = menuData.filter((menu: MenuData) =>
+    Array.isArray(menu.menuItem) &&
+    menu.menuItem.some((item) => item?.isFeatured),
   );
 
   return (
@@ -57,18 +63,7 @@ export default async function Home() {
                 </div>
               </div>
             ))}
-            {/* 
-            {featuredMenu.slice(0, 2).map((menu: MenuData) => (
-              <div key={menu.id}>
-                <h3>{menu.title}</h3>
-
-                {menu.menuItem
-                  .filter((item) => item.isFeatured)
-                  .map((item) => (
-                    <p key={item.id}>{item.description}</p>
-                  ))}
-              </div>
-            ))} */}
+            
           </div>
         </div>
       )}
@@ -81,12 +76,12 @@ export default async function Home() {
         All Menus
       </h2>
       <div className="grid grid-cols-3 mt-10 justify-evenly gap-5 w-6xl mb-10">
-        {data?.map((menu: FoodMenu) => (
+        {menuData.map((menu: FoodMenu) => (
           <MenuCard key={menu.id} menu={menu}></MenuCard>
         ))}
       </div>
       <AccordionHome></AccordionHome>
-      <FooterPage></FooterPage>
+
     </div>
   );
 }

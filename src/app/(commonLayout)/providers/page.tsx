@@ -10,7 +10,7 @@ export default async function AllProviders() {
  console.log("data from all provider page: ", data);
 
   return (
-    <div className="grid grid-cols-3 mt-10 ml-15 gap-5 w-6xl">
+    <div className="grid grid-cols-3 my-10 ml-15 gap-5 w-6xl">
 
       {
         data?.map((provider: ProviderType)=>(

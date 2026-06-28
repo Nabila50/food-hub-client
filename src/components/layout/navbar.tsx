@@ -27,6 +27,8 @@ import {
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface MenuItem {
   title: string;
@@ -77,15 +79,15 @@ const Navbar = ({
           icon: <Book className="size-5 shrink-0" />,
           url: "/menu/foodlist",
         },
-        {
-          title: "Categories",
-          description: "Different food categories",
-          icon: <Trees className="size-5 shrink-0" />,
-          url: "/menu/categories",
-        }
+        // {
+        //   title: "Categories",
+        //   description: "Different food categories",
+        //   icon: <Trees className="size-5 shrink-0" />,
+        //   url: "/menu/categories",
+        // },
       ],
     },
-     
+
     {
       title: "About",
       url: "/about",
@@ -100,7 +102,7 @@ const Navbar = ({
     },
     {
       title: "Dashboard",
-      url: "/customer-dashboard",
+      url: "/profile",
     },
     // {
     //   title: "Dashboard",
@@ -113,20 +115,63 @@ const Navbar = ({
   },
   className,
 }: Navbar1Props) => {
+  const router = useRouter();
+  const [user, setUser] = useState<any>(null);
+
+  // reusable function
+  const fetchUser = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/get-session", {
+        credentials: "include",
+      });
+
+      const data = await res.json();
+
+      setUser(data?.user || null);
+    } catch (err) {
+      setUser(null);
+    }
+  };
+
+  // Check session
+  useEffect(() => {
+    fetchUser(); // initial load
+
+    const handleAuthChange = () => {
+      fetchUser(); // re-check session when login/logout happens
+    };
+
+    window.addEventListener("auth-change", handleAuthChange);
+
+    return () => {
+      window.removeEventListener("auth-change", handleAuthChange);
+    };
+  }, []);
+
+  // Handle Logout button function
+
+  const handleLogout = async () => {
+    await fetch("http://localhost:5000/api/auth/sign-out", {
+      method: "POST",
+      credentials: "include",
+    });
+
+    setUser(null);
+    router.push("/");
+    router.refresh();
+  };
+
   return (
     <section className={cn("py-6 bg-lime-200", className)}>
       <div className="container mx-auto px-5">
- 
         <nav className="hidden items-center justify-between lg:flex">
           <div className="flex items-center gap-6">
-        
             <a href={logo.url} className="flex items-center gap-2">
               <img
                 src={logo.src}
                 className="max-h-8 dark:invert"
                 alt={logo.alt}
               />
-              
             </a>
             <div className="flex items-center">
               <NavigationMenu>
@@ -138,20 +183,38 @@ const Navbar = ({
           </div>
           <div className="flex gap-2">
             <ModeToggle></ModeToggle>
-            
-            <Button asChild variant="outline" size="lg" className= "text-black font-semibold bg-amber-300">
-              <Link href={auth.login.url}>{auth.login.title}</Link>
-            </Button>
-            <Button asChild size="lg" className="bg-lime-500 text-black font-semibold">
-              <Link href={auth.signup.url}>{auth.signup.title}</Link>
-            </Button>
+
+            {user ? (
+              <Button
+                onClick={handleLogout}
+                variant="destructive"
+                size="lg"
+                className="bg-amber-300 text-black hover:bg-amber-600"
+              >
+                Logout
+              </Button>
+            ) : (
+              <>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="bg-amber-300 text-black"
+                >
+                  <Link href={auth.login.url}>{auth.login.title}</Link>
+                </Button>
+
+                <Button asChild size="lg">
+                  <Link href={auth.signup.url}>{auth.signup.title}</Link>
+                </Button>
+              </>
+            )}
           </div>
         </nav>
 
         {/* Mobile Menu */}
         <div className="block lg:hidden">
           <div className="flex items-center justify-between">
-    
             <a href={logo.url} className="flex items-center gap-2">
               <img
                 src={logo.src}
@@ -227,7 +290,6 @@ const renderMenuItem = (item: MenuItem) => {
         className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-base font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
       >
         <Link href={item.url}> {item.title}</Link>
-       
       </NavigationMenuLink>
     </NavigationMenuItem>
   );

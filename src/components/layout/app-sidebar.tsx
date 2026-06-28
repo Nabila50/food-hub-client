@@ -78,7 +78,7 @@ export function AppSidebar({user, ...props }:{user: {role: string} & React.Compo
    
    
       <SidebarContent className="bg-lime-200 pt-10 font-semibold">
-        {/* We create a SidebarGroup for each parent. */}
+ 
         {routes.map((item) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>

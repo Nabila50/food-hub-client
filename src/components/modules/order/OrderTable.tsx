@@ -22,14 +22,14 @@ import { toast } from "sonner";
 import ReviewForm from "../review/ReviewForm";
 
 type Props = {
-  orders: any; // flexible because your API is currently nested
+  orders: any;  
   role?: string;
 };
 // * problem start data is not fatching properly
 const NEXT_PUBLIC_API_URL = env.NEXT_PUBLIC_API_URL;
 
 export default function OrderTable({ orders }: Props) {
-  // Normalize data safely (handles all your current API issues)
+   
   const orderList: OrderType[] = Array.isArray(orders)
     ? orders
     : orders?.data || [];
@@ -38,11 +38,6 @@ export default function OrderTable({ orders }: Props) {
 
   const role = (session?.user as any)?.role;
   console.log("All Orders:", orderList);
-  // orderList.forEach((order) => {
-  //   console.log("ORDER ID:", order.id);
-  //   console.log("STATUS:", order.status);
-  //   console.log("ORDER ITEMS:", order.orderItems);
-  // });
 
   orderList.forEach((order) => {
     console.log(order.id, order.status, order.orderItems?.[0]?.menuItem?.name);
@@ -117,43 +112,6 @@ export default function OrderTable({ orders }: Props) {
 
                 <TableCell>{order.status}</TableCell>
 
-                {/* <TableCell>{order?.orderItems?.[0]?.menuItem?.id}</TableCell> */}
-
-                {/* <TableCell>
-                  {role === "ADMIN" || role === "PROVIDER" ? (
-                    <Select
-                      defaultValue={order.status}
-                      onValueChange={(value) =>
-                        handleStatusChange(order.id, value)
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-
-                      <SelectContent>
-                        <SelectItem value="PENDING">Pending</SelectItem>
-
-                        <SelectItem value="PREPARING">Preparing</SelectItem>
-
-                        <SelectItem value="ONWAY">On Way</SelectItem>
-
-                        <SelectItem value="DELIVERED">Delivered</SelectItem>
-
-                        <SelectItem value="CANCELLED">Cancelled</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  ) : (
-                    <span>
-                      {order.status === "DELIVERED" && (
-                        <ReviewForm
-                          menuItemId={order?.orderItems?.[0]?.menuItem?.id}
-                        />
-                      )}
-                      
-                    </span>
-                  )}
-                </TableCell> */}
                 <TableCell>
                   {role === "ADMIN" || role === "PROVIDER" ? (
                     <Select
@@ -176,7 +134,6 @@ export default function OrderTable({ orders }: Props) {
                     </Select>
                   ) : (
                     <div className="flex flex-col gap-2">
-                      {/* Customer can cancel only if order is pending */}
                       {order.status === "PENDING" && (
                         <button
                           className="bg-red-500 text-white px-3 py-1 rounded"
@@ -188,7 +145,7 @@ export default function OrderTable({ orders }: Props) {
                         </button>
                       )}
 
-                      {/* Review after delivered */}
+                      {/* Review section */}
                       {order.status === "DELIVERED" && (
                         <ReviewForm
                           menuItemId={order?.orderItems?.[0]?.menuItem?.id}
