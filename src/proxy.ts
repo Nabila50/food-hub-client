@@ -81,39 +81,3 @@ export const config = {
   ],
 };
 
-
-
-
-
-
-
-
-// import { NextRequest, NextResponse } from "next/server";
-// import { userService } from "./services/user.service";
-
-// export async function proxy(request: NextRequest){
-
-//   let isAuthentication = false;
- 
-
-//   const { data } = await userService.getSession();
-
-//   if(data){
-//     isAuthentication = true;
-//   }
-   
-
-//   return NextResponse.next();
-// }
-
-// export const config= {
-//   matcher: ["/customer-dashboard"]
-// }
-
-
-
-
-
-
-
-

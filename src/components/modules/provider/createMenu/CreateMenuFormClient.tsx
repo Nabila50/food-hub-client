@@ -102,7 +102,7 @@ export function CreateMenuFormClient() {
   });
 
   return (
-    <Card className="max-w-2xl mx-auto">
+    <Card className="max-w-5xl">
       <CardHeader>
         <CardTitle>Create Menu </CardTitle>
         <CardDescription>You can create Menu and Menu Items</CardDescription>

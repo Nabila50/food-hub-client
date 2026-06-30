@@ -10,7 +10,11 @@ export const adminRoutes: Route[] = [
       },
       {
         title: "Menu Management",
-        url: "/admin-dashboard/createmenu",
+        url: "/create-menu",
+      },
+      {
+        title: "History of Menus",
+        url: "/menu-history"
       },
       {
         title: "Order Info",

@@ -23,14 +23,14 @@ export default async function Home() {
   return (
     <div className="place-items-center">
       {/* Banner Image */}
-      <div className="relative w-7xl h-100">
+      <div className="w-7xl h-100 ">
         <img
-          className="w-full h-full rounded-b-lg object-cover"
+          className="mx-2 w-7xl h-100 rounded-b-lg"
           src="https://i.ibb.co/Z67kx8Zw/resturant-pic.jpg"
           alt="Restaurant"
         />
 
-        <div className="absolute inset-0 rounded-b-lg bg-black/30"></div>
+        {/* <div className="absolute w-screen inset-0 rounded-b-lg bg-black/30"></div> */}
 
         <div className="absolute inset-0 align-middle place-items-center mt-35">
           <h1 className="text-5xl md:text-7xl font-serif italic text-white tracking-wide">

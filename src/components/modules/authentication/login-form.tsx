@@ -76,7 +76,7 @@ export function LoginForm({
           id: toastId,
         });
 
-        router.push("/dashboard");
+        router.push("/");
         router.refresh();
       } catch (err) {
         console.error("LOGIN ERROR:", err);
