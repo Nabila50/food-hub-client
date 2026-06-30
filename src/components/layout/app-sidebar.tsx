@@ -52,10 +52,11 @@ const data = {
   ],
 }
 
-export function AppSidebar({user, ...props }:{user: {role: string} & React.ComponentProps<typeof Sidebar>}) {
-
+export function AppSidebar({user, ...props }:{user?: {role?: string} & React.ComponentProps<typeof Sidebar>} & React.ComponentProps<typeof Sidebar>) {
+    console.log("Sidebar user:", user);
+  console.log("Sidebar role:", user?.role);
   let routes : Route[] = [];
-  switch (user.role) {
+  switch (user?.role) {
     case Roles.admin:
       routes = adminRoutes;
       break;

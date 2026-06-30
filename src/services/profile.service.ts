@@ -6,18 +6,22 @@ const API_URL = env.API_URL;
 
 export const profileService = {
   getMyProfile: async () => {
-    const cookieStore = await cookies();
+    try {
+      const cookieStore = await cookies();
 
-    const res = await fetch(`${API_URL}/users/profile`, {
-      cache: "no-store",
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
-    });
+      const res = await fetch(`${API_URL}/users/profile`, {
+        cache: "no-store",
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
 
-    const json = await res.json();
+      const json = await res.json();
 
-    return json.data;  
+      return json?.data ?? null;
+    } catch (error) {
+      return null;
+    }
   },
 };
 

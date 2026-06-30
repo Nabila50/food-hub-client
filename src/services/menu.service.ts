@@ -13,8 +13,8 @@ interface getMenuParams {
   isAvailable?: boolean;
   search?: string;
   page?: string;
-  isFeatured: boolean;
-  description: string;
+  isFeatured?: boolean;
+  description?: string;
 //    menuItem: {
 //     id: string;
 //     name: string;
@@ -90,7 +90,7 @@ export const menuService = {
   // * create Menu
   createMenuPost: async (menuData: MenuData) => {
     try {
-      // const cookieStore = await cookies();
+      const cookieStore = await cookies();
 
       const res = await fetch(`${API_URL}/menus`, {
         method: "POST",

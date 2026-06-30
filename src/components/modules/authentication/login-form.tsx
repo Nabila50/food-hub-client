@@ -38,7 +38,7 @@ export function LoginForm({
     try {
       const data = await authClient.signIn.social({
         provider: "google",
-        callbackURL: "http://localhost:3000",
+        callbackURL: "https://localhost:3000",
       });
     } catch (error) {
       alert("Login failed. Make sure backend server is running on port 5000");
@@ -56,45 +56,34 @@ export function LoginForm({
       onSubmit: formSchema,
     },
 
-    // onSubmit: async ({ value }) => {
-    //    const router = useRouter();
-    //   const toastId = toast.loading("creating User")
-    //  try{
-    //    const {data, error} = await authClient.signIn.email(value);
-
-    //    if(error){
-    //     toast.error(error.message, {id: toastId});
-    //     return;
-    //    }
-
-    //    toast.success("User logged in successfully....", {id: toastId})
-
-    //  }catch(err){
-    //   toast.error("Something went wrong, please try again.", {id: toastId})
-
-    //  }
-
-    // },
-
     // * onSubmit Form
     onSubmit: async ({ value }) => {
       const toastId = toast.loading("Logging in...");
 
       try {
-        const { data, error } = await authClient.signIn.email(value);
+        const res = await authClient.signIn.email(value);
 
-        if (error) {
-          toast.error(error.message, { id: toastId });
+        console.log("Login response:", res);
+
+        if (res.error) {
+          toast.error(res.error.message || "Login failed", {
+            id: toastId,
+          });
           return;
         }
 
-        toast.success("Login successful!", { id: toastId });
+        toast.success("Login successful!", {
+          id: toastId,
+        });
 
-        window.dispatchEvent(new Event("auth-change"));
-        router.push("/");
+        router.push("/dashboard");
         router.refresh();
       } catch (err) {
-        toast.error("Something went wrong, please try again.", { id: toastId });
+        console.error("LOGIN ERROR:", err);
+
+        toast.error("Something went wrong. Please try again.", {
+          id: toastId,
+        });
       }
     },
   });

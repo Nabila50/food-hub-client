@@ -7,22 +7,22 @@ import { CreateMenuFormClient } from "@/components/modules/provider/createMenu/C
  
  export default async function CreateMenuPage() {
 
-  const {data} = await menuService.getFoodMenu({}, {cache: "no-store"});
+  const { data, error } = await menuService.getFoodMenu(undefined, {
+  cache: "no-store",
+});
 
+if (error) {
+  return <p>Failed to load menu.</p>;
+}
 
-   return (
-     <div>
-      {/* <CreateMenuFormServer/> */}
-      <CreateMenuFormClient/>
-      {data.map((item: FoodMenu) => (
-        <p key={item.id} >{item.title}</p>
-      ))}
-        
-      
-      {/* </CreateMenuFormServer> */}
+const menus = Array.isArray(data) ? data : [];
 
-     
-     </div>
-   )
+return (
+  <>
+    {menus.map((item: FoodMenu) => (
+      <p key={item.id}>{item.title}</p>
+    ))}
+  </>
+);
  }
  

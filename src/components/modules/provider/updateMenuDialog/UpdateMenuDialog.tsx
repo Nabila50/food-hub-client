@@ -21,10 +21,9 @@ import {
 } from "@/components/ui/dialog";
 
 import { Switch } from "@/components/ui/switch";
-import { MenuData } from "@/services/menu.service";
 
 interface Props {
-  menu: MenuData;
+  menu: FoodMenu;
 }
 
 export default function UpdateMenuDialog({ menu }: Props) {

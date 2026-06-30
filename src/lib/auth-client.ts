@@ -1,6 +1,38 @@
+import { env } from "@/env";
 import { createAuthClient } from "better-auth/react"
+
 export const authClient = createAuthClient({
-    /** The base URL of the server (optional if you're using the same domain) */
-    baseURL: "http://localhost:5000",
+  baseURL:`${env.NEXT_PUBLIC_API_URL}/api/auth` || "https://localhost:3000",
+  fetchOptions: {
+    credentials: "include",
+  },
+
+    plugins:[
+        {
+            id:"next-cookies-request",
+            fetchPlugins:[
+                {
+                    id: "next-cookies-request-plugin",
+                    name: "next-cookies-request-plugin",
+                    hooks:{
+                        async onRequest(ctx){
+                            if(typeof window === "undefined"){
+                                const {cookies} = await import("next/headers");
+                                const headers = await cookies();
+                                ctx.headers.set("cookie", headers.toString());
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
     
-})
+});
+
+export const signInWithGoogle = async ()=>{
+    return await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "https://localhost:3000"
+    })
+}

@@ -3,26 +3,19 @@ import { menuService } from "@/services/menu.service";
 import { FoodList, FoodMenu } from '../../../../../types/menu.type';
 import { CreateMenuFormClient } from "@/components/modules/provider/createMenu/CreateMenuFormClient";
 
- 
- 
- export default async function CreateMenuPage() {
+export default async function CreateMenuPage() {
+  const { data } = await menuService.getFoodMenu({ isFeatured: false, description: "" });
+  const menus: FoodMenu[] = Array.isArray(data) ? data : [];
 
-  const {data} = await menuService.getFoodMenu({}, {cache: "no-store"});
-
-  console.log(data);
-   return (
-     <div>
+  return (
+    <div>
       {/* <CreateMenuFormServer/> */}
-      <CreateMenuFormClient/>
-      {data.map((item: FoodMenu) => (
-        <p key={item.id} >{item.title}</p>
+      <CreateMenuFormClient />
+      {menus.map((item: FoodMenu) => (
+        <p key={item.id}>{item.title}</p>
       ))}
-        
-      
       {/* </CreateMenuFormServer> */}
-
-     
-     </div>
-   )
- }
+    </div>
+  );
+}
  

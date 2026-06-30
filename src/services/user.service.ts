@@ -7,10 +7,9 @@ const API_URL = env.API_URL;
 export const userService = {
   // * get session
   getSession: async function () {
-    try{
-        const cookieStore = await cookies();
+  try {
+    const cookieStore = await cookies();
 
-    console.log(cookieStore.toString());
     const res = await fetch(`${AUTH_URL}/get-session`, {
       headers: {
         Cookie: cookieStore.toString(),
@@ -18,39 +17,57 @@ export const userService = {
       cache: "no-store",
     });
 
+    console.log("Status:", res.status);
+    console.log("URL:", res.url);
+
     const session = await res.json();
 
-    if(session === null){
-        return {data:null, error: {message: "session is missing"} }
+    console.log("Session Response:", session);
+
+    if (session === null) {
+      return {
+        data: null,
+        error: {
+          message: "Session is missing",
+        },
+      };
     }
 
-    return {data: session, error: null}
-
-    }catch (err){
- 
-        return {data: null, error: {message: "something went wrong!!!!"}}
-
-    }
-  },
-
-  getCustomer: async function () {
-  try {
-    const cookieStore = await cookies();
-
-    const res = await fetch(`${API_URL}/users`, {
-      cache: "no-store",
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
-    });
-
-    const data = await res.json();
-   
-    return { data: data };
+    return {
+      data: session,
+      error: null,
+    };
   } catch (err) {
- 
-    return { data: null, error: { message: "Customers not found went wrong!!" } };
+    console.error("getSession Error:", err);
+
+    return {
+      data: null,
+      error: {
+        message: "Something went wrong",
+      },
+    };
   }
 },
 
+  getCustomer: async function () {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(`${API_URL}/users`, {
+        cache: "no-store",
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
+
+      const data = await res.json();
+
+      return { data: data };
+    } catch (err) {
+      return {
+        data: null,
+        error: { message: "Customers not found went wrong!!" },
+      };
+    }
+  },
 };

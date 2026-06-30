@@ -29,8 +29,20 @@ export default async function DashboardLayout({
   customer: React.ReactNode;
   provider: React.ReactNode;
 }) {
-  const { data } = await userService.getSession();
-  const userInfo = data?.user;
+const result = await userService.getSession();
+
+console.log("RESULT:", result);
+console.log("DATA:", result.data);
+console.log("ERROR:", result.error);
+
+const data = result.data;
+
+const userInfo = data?.user;
+const userRole = userInfo?.role;
+
+console.log("Sidebar user:", userInfo);
+console.log("Sidebar role:", userRole);
+ 
 
   return (
     <SidebarProvider>
@@ -59,17 +71,18 @@ export default async function DashboardLayout({
           {userInfo.role === Roles.customer && customer}
           {userInfo.role === Roles.provider && provider} */}
 
-
           {children}
-          {userInfo.role === Roles.admin
+          {userRole === Roles.admin
             ? admin
-            : userInfo.role === Roles.customer
+            : userRole === Roles.customer
               ? customer
-              : userInfo.role === Roles.provider
+              : userRole === Roles.provider
                 ? provider
                 : null}
         </div>
       </SidebarInset>
     </SidebarProvider>
   );
+
+
 }
