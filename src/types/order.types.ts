@@ -12,7 +12,7 @@ export type OrderType = {
 
 };
 
-export interface MenuItemType {
+export interface OrderMenuItemType {
   id: string;
   name: string;
   description: string;
@@ -25,7 +25,7 @@ export interface OrderItemType {
   id: string;
   quantity: number;
   price: number;
-  menuItem: MenuItemType;
+  menuItem: OrderMenuItemType;
 }
 
 const statusOptions = [

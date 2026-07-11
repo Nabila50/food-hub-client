@@ -29,12 +29,12 @@ export default async function ProfilePage() {
           </CardContent>
         </div>
 
-        {profile.role === "PROVIDER" && profile.provider && (
+        {/* {profile.role === "PROVIDER" && profile.provider && (
           <div className="mt-4">
             <h3 className="font-bold">Provider Details</h3>
             <p>Company: {profile.provider.companyName ?? "N/A"}</p>
           </div>
-        )}
+        )} */}
       </Card>
     </div>
   );

@@ -29,6 +29,7 @@ import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { authClient } from "@/lib/auth-client";
 
 interface MenuItem {
   title: string;
@@ -79,12 +80,6 @@ const Navbar = ({
           icon: <Book className="size-5 shrink-0" />,
           url: "/menu/foodlist",
         },
-        // {
-        //   title: "Categories",
-        //   description: "Different food categories",
-        //   icon: <Trees className="size-5 shrink-0" />,
-        //   url: "/menu/categories",
-        // },
       ],
     },
 
@@ -117,11 +112,19 @@ const Navbar = ({
 }: Navbar1Props) => {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
+  const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5000";
 
   // reusable function
+
+//   const fetchUser = async () => {
+//     const { data } = await authClient.getSession();
+
+//     setUser(data?.user ?? null);
+// }
+
   const fetchUser = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/auth/get-session", {
+      const res = await fetch(`${API_URL}/api/auth/get-session`, {
         credentials: "include",
       });
 
@@ -150,8 +153,11 @@ const Navbar = ({
 
   // Handle Logout button function
 
+  
+  // Handle Logout button function
+
   const handleLogout = async () => {
-    await fetch("http://localhost:5000/api/auth/sign-out", {
+    await fetch(`${API_URL}/api/auth/sign-out`, {
       method: "POST",
       credentials: "include",
     });
@@ -160,6 +166,8 @@ const Navbar = ({
     router.push("/");
     router.refresh();
   };
+
+
 
   return (
     <section className={cn("py-6 bg-lime-200", className)}>

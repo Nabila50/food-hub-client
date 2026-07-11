@@ -9,17 +9,32 @@ export const profileService = {
     try {
       const cookieStore = await cookies();
 
-      const res = await fetch(`${API_URL}/users/profile`, {
-        cache: "no-store",
-        headers: {
-          Cookie: cookieStore.toString(),
-        },
-      });
+      const fetchProfile = async (path: string) => {
+        const res = await fetch(`${API_URL}${path}`, {
+          cache: "no-store",
+          headers: {
+            Cookie: cookieStore.toString(),
+          },
+        });
 
-      const json = await res.json();
+        if (!res.ok) {
+          return null;
+        }
 
-      return json?.data ?? null;
+        return res.json();
+      };
+
+      const json =
+        (await fetchProfile("/users/profile")) ||
+        (await fetchProfile("/profile"));
+
+      if (!json) {
+        return null;
+      }
+
+      return json?.data?.user ?? json?.data ?? json ?? null;
     } catch (error) {
+      console.error("getMyProfile error:", error);
       return null;
     }
   },

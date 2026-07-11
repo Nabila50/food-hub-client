@@ -7,47 +7,49 @@ const API_URL = env.API_URL;
 export const userService = {
   // * get session
   getSession: async function () {
-  try {
-    const cookieStore = await cookies();
+    try {
+      const cookieStore = await cookies();
+      console.log("Cookies:", cookieStore.getAll());
+      console.log("Cookie String:", cookieStore.toString());
 
-    const res = await fetch(`${AUTH_URL}/get-session`, {
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
-      cache: "no-store",
-    });
+      const res = await fetch(`${AUTH_URL}/get-session`, {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+        cache: "no-store",
+      });
 
-    console.log("Status:", res.status);
-    console.log("URL:", res.url);
+      console.log("Status:", res.status);
+      console.log("URL:", res.url);
 
-    const session = await res.json();
+      const session = await res.json();
 
-    console.log("Session Response:", session);
+      console.log("Session Response:", session);
 
-    if (session === null) {
+      if (session === null) {
+        return {
+          data: null,
+          error: {
+            message: "Session is missing",
+          },
+        };
+      }
+
+      return {
+        data: session,
+        error: null,
+      };
+    } catch (err) {
+      console.error("getSession Error:", err);
+
       return {
         data: null,
         error: {
-          message: "Session is missing",
+          message: "Something went wrong",
         },
       };
     }
-
-    return {
-      data: session,
-      error: null,
-    };
-  } catch (err) {
-    console.error("getSession Error:", err);
-
-    return {
-      data: null,
-      error: {
-        message: "Something went wrong",
-      },
-    };
-  }
-},
+  },
 
   getCustomer: async function () {
     try {

@@ -6,8 +6,11 @@ import { menuService } from "@/services/menu.service";
 
 import { FoodMenu } from "@/types";
 import { MenuData } from "../../services/menu.service";
+import { authClient } from "@/lib/auth-client";
+import { cookies } from "next/headers";
 
 export default async function Home() {
+
   const menuResponse = await menuService.getFoodMenu();
   const menuData = Array.isArray(menuResponse?.data)
     ? menuResponse.data

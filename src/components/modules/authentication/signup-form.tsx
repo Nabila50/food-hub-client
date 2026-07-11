@@ -40,7 +40,7 @@ export function SignupForm({
   try {
     const data = await authClient.signIn.social({
       provider: "google",
-      callbackURL: "http://localhost:3000"
+      callbackURL: "https://food-hub-client-three.vercel.app"
     });
     console.log("Login successful:", data);
   } catch (error) {

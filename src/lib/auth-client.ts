@@ -2,7 +2,7 @@ import { env } from "@/env";
 import { createAuthClient } from "better-auth/react"
 
 export const authClient = createAuthClient({
-  baseURL:`${env.NEXT_PUBLIC_API_URL}/api/auth` || "https://localhost:3000",
+  baseURL:`${env.NEXT_PUBLIC_API_URL}/api/auth`,
   fetchOptions: {
     credentials: "include",
   },
@@ -33,6 +33,6 @@ export const authClient = createAuthClient({
 export const signInWithGoogle = async ()=>{
     return await authClient.signIn.social({
         provider: "google",
-        callbackURL: "https://localhost:3000"
+        callbackURL: "http://localhost:3000"
     })
 }

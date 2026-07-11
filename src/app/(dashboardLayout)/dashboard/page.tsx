@@ -3,9 +3,7 @@ import { userService } from "@/services/user.service";
 import { profileService } from "@/services/profile.service";
 
 export default async function DashboardPage() {
-  const response = await profileService.getMyProfile();
-
-  const user = response?.data;
+  const user = await profileService.getMyProfile();
 
   if (!user) {
     redirect("/login");
